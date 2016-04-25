@@ -28,6 +28,25 @@ Plug 'mileszs/ack.vim'
 
 " Synstax check for many languages
 Plug 'scrooloose/syntastic'
+
+" Fugitive, Plugin for git
+Plug 'tpope/vim-fugitive'
+
+" Easytags. tag library helper and required plugin vim-misc
+Plug 'xolox/vim-easytags'
+Plug 'xolox/vim-misc'
+
+" Tagbar
+Plug 'majutsushi/tagbar'
+
+" Better javascript syntax
+Plug 'jelera/vim-javascript-syntax'
+
+" better php syntax
+Plug 'StanAngeloff/php.vim'
+
+"Interesante kandidaten:
+" glts/vim-cottidie
 call plug#end()
 " }}}
 
@@ -72,6 +91,8 @@ set cursorline " nice highlightline on cursor
 " make lines that are to long red
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 match OverLength /\%81v.\+/
+
+set synmaxcol=100 " this slows down vim extremely
 
 " {{{ Syntastic settings
 set statusline+=%#warningmsg#
