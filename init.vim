@@ -28,6 +28,12 @@ Plug 'mileszs/ack.vim'
 
 " Synstax check for many languages
 Plug 'scrooloose/syntastic'
+
+" Nice undo plugin
+Plug 'vim-scripts/gundo'
+
+" Fugitive git wrapper
+Plug 'tpope/vim-fugitive'
 call plug#end()
 " }}}
 
