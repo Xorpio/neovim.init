@@ -39,6 +39,9 @@ Plug 'tpope/vim-fugitive'
 Plug 'xolox/vim-easytags'
 Plug 'xolox/vim-misc'
 
+" Dependend on xolox/vim-misc
+Plug 'xolox/vim-notes'
+
 " Tagbar
 Plug 'majutsushi/tagbar'
 
@@ -48,8 +51,35 @@ Plug 'jelera/vim-javascript-syntax'
 " better php syntax
 Plug 'StanAngeloff/php.vim'
 
-"Interesante kandidaten:
+" Markdown syntax
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
+
+" Project specific vim files
+Plug 'joonty/vim-sauce'
+
+" Dark powered neo-completion
+function! DoRemote(arg)
+      UpdateRemotePlugins
+endfunction
+Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
+
+" tmux naviation
+Plug 'christoomey/vim-tmux-navigator'
+
+" Comments toggle plugin
+Plug 'tomtom/tcomment_vim'
+
+"Interesante kandidates
 " glts/vim-cottidie
+" tpope/vim-surround --  surround text with html, and more
+" Valloric/YouCompleteMe  -- Completion with fuzzy search
+" sirver/ultisnips -- snippets
+" godlygeek/tabular -- simple tab alligntment plugin
+" weierophinney/argumentrewrap -- argument styleing
+" joonty/vdebug -- debuggin!
+" shawncplus/phpcomplete.vim -- completion
+
 call plug#end()
 " }}}
 
@@ -62,12 +92,14 @@ set number " Turn on line numbers
 syntax on " making shure syntax colors are shown
 set background=dark " nice and dark
 colorscheme solarized " nice theme
+set t_Co=256
 
 set laststatus=2 " alwasy show statusbar
 let g:airline_detect_paste=1 " somthing with paste mode?
 let g:airline#extenstions#tabline#enabled=1 " and show in tabs
 
-nmap <silent> <leader>n :NERDTreeToggle<CR> " mapping to open nerdtree
+nnoremap <silent> <leader>n :NERDTreeToggle<CR> " mapping to open nerdtree
+let NERDTreeShowLineNumbers=1
 
 set autoindent " automatic indenting
 set copyindent " must find this one out
@@ -91,11 +123,20 @@ set scrolloff=3 " make shure there are always 3 lines vissible
 
 set cursorline " nice highlightline on cursor
 
-" make lines that are to long red
-highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-match OverLength /\%81v.\+/
+let g:sauce_path = "~/.config/nvim/sauces" " vim sauce storage path
 
-set synmaxcol=100 " this slows down vim extremely
+set showcmd " show commands whiel typing
+
+let g:deoplete#enable_at_startup = 1 " Use deoplete
+
+" make lines that are to long red
+" highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+" match OverLength /\%81v.\+/
+
+" Disabled because breaks syntax
+" set synmaxcol=100 " this slows down vim extremely
+
+let g:easytags_async=1 " Easytags on asyn
 
 " {{{ Syntastic settings
 set statusline+=%#warningmsg#
@@ -106,9 +147,43 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+
+let g:syntastic_scss_checkers=['sass']
 " }}}
 
 " {{{ My personal mappings
-nmap <leader>ve :e ~/.config/nvim/init.vim<CR> " VimrcEdit
-nmap <leader>vs :source ~/.config/nvim/init.vim<CR> " VimrcSource
+" Disable arrow keys!
+nnoremap <Up> :echo "Use 'k' instead!"<CR>
+nnoremap <Down> :echo "Use 'j' instead!"<CR>
+nnoremap <Left> :echo "Use 'h' instead!"<CR>
+nnoremap <Right> :echo "Use 'l' instead!"<CR>
+
+nnoremap <leader>ve :e $MYVIMRC<CR> " VimrcEdit
+nnoremap <leader>vs :source $MYVIMRC<CR> " VimrcSource
+" }}}
+
+" {{{ Vimscript learning
+" chapter 3
+noremap <leader>_ ddkP
+noremap <leader>- ddp
+
+" chapter 4
+inoremap <c-u> <esc>viwUea
+
+" Chapter 5?
+"
+" Chapter 6
+let maplocalleader="\\"
+
+" Chapter 7 = vimrc srouce and load
+
+" Chapter 8
+iabbrev mischien "misschien"
+iabbrev @@ niek.de.gooijer@gmail.com
+
+" Chapter 9
+" quotes the current word
+nnoremap <leader>' viw<esc>a'<esc>hbi'<esc>lel 
+
+vnoremap <leader>q <esc>`<i'<esc>`>a'<esc>
 " }}}
